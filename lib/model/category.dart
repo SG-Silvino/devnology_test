@@ -1,5 +1,3 @@
-import 'package:devnology_test/config/supabase_config.dart';
-
 class Category {
   String? id;
   List? categories;
@@ -21,11 +19,5 @@ class Category {
       id: map['id'],
       categories: map['categories'],
     );
-  }
-
-  Future getdata() async {
-    var response = await supabase.from('Category').select().execute();
-
-    return response.data;
   }
 }

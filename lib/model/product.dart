@@ -1,5 +1,3 @@
-import 'package:devnology_test/config/supabase_config.dart';
-
 class Product {
   String? id;
   String? name;
@@ -33,11 +31,5 @@ class Product {
       imgUrl: map['imgUrl'],
       price: map['price'],
     );
-  }
-
-  Future getdata() async {
-    var response = await supabase.from('Product').select().execute();
-
-    return response.data;
   }
 }

@@ -1,5 +1,3 @@
-import 'package:devnology_test/config/supabase_config.dart';
-
 class Banner {
   String? id;
   List? banners;
@@ -17,15 +15,6 @@ class Banner {
   }
 
   factory Banner.fromMap(Map<String, dynamic> map) {
-    return Banner(
-      id: map['id'],
-      banners: map['banners']
-    );
-  }
-
-  Future getdata() async {
-    var response = await supabase.from('Banner').select().execute();
-
-    return response.data;
+    return Banner(id: map['id'], banners: map['banners']);
   }
 }
