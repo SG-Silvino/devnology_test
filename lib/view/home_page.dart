@@ -109,16 +109,32 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return const BannerItem();
-              },
-            ),
+          Column(
+            children: [
+              Container(
+                alignment: AlignmentDirectional.topStart,
+                margin: const EdgeInsets.only(left: 25, bottom: 12),
+                child: const Text(
+                  "Lastest",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 180,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return const BannerItem();
+                  },
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: ListView.builder(
