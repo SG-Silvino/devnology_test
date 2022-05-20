@@ -1,5 +1,7 @@
-import 'package:devnology_test/view/splash_screen_page.dart';
+import 'package:devnology_test/config/routes.dart';
 import 'package:flutter/material.dart';
+
+int cart = 0;
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Devnology',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SplashScreenPage(),
+      // home: const SplashScreenPage(),
+      initialRoute: '/',
+      routes: routes,
     );
   }
 }
