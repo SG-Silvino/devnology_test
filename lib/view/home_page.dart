@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   CircleAvatar(
                                     backgroundColor: Colors.white,
-                                    radius: 45,
+                                    radius: 40,
                                     child: Icon(
                                       Icons.arrow_forward_ios_outlined,
                                       color: AppTheme.secondaryColor,

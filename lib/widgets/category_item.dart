@@ -15,7 +15,7 @@ class CategoryItem extends StatelessWidget {
         child: Column(
           children: [
             CircleAvatar(
-              radius: 45,
+              radius: 40,
               child: Text(index.toString()),
             ),
             const SizedBox(height: 8),
