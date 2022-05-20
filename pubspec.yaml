@@ -17,6 +17,8 @@ dependencies:
   flutter_svg: ^1.0.3
   badges: ^2.0.2
 
+  supabase: ^0.2.15
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
