@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 int cart = 0;
 
+List bannerList = [];
+List categoryList = [];
+List productList = [];
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +19,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Devnology',
-      // home: const SplashScreenPage(),
       initialRoute: '/',
       routes: routes,
     );
