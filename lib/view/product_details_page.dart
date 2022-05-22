@@ -83,54 +83,55 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               Container(
                 width: double.infinity,
                 margin: const EdgeInsets.only(left: 20),
-                child: Text(
-                  "Price:",
-                  style: AppTheme.textStyleParagraph(
-                    fontWeight: FontWeight.w700,
-                    color: AppTheme.letterblack,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 15, bottom: 15),
-                child: Row(
+                child: Column(
                   children: [
-                    Icon(
-                      Icons.attach_money,
-                      size: 28,
-                      color: AppTheme.primaryColor,
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Price:",
+                        style: AppTheme.textStyleParagraph(
+                          fontWeight: FontWeight.w700,
+                          color: AppTheme.letterblack,
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
-                    Text(
-                      "${widget.product!.price}",
-                      style: AppTheme.textStyleParagraph(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w900,
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 15),
+                      width: double.infinity,
+                      child: priceFormat(
+                        widget.product!.price!,
+                        style: AppTheme.textStyleParagraph(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                  ],
+                ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        "About this item:",
+                        style: AppTheme.textStyleParagraph(
+                          fontWeight: FontWeight.w700,
+                          color: AppTheme.letterblack,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(right: 22, bottom: 6),
+                      width: double.infinity,
+                      child: Text(
+                        "${widget.product!.details}",
+                        style: AppTheme.textStyleParagraph(
+                          color: AppTheme.letterblack,
+                        ),
                       ),
                     ),
                   ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(left: 20, bottom: 10),
-                child: Text(
-                  "About this item:",
-                  style: AppTheme.textStyleParagraph(
-                    fontWeight: FontWeight.w700,
-                    color: AppTheme.letterblack,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 20, right: 22, bottom: 6),
-                width: double.infinity,
-                child: Text(
-                  "${widget.product!.details}",
-                  style: AppTheme.textStyleParagraph(
-                    color: AppTheme.letterblack,
-                  ),
                 ),
               ),
             ],
