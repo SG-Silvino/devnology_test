@@ -6,6 +6,8 @@ int cart = 0;
 List bannerList = [];
 List categoryList = [];
 List productList = [];
+List cartProductIds = [];
+List cartProductList = [];
 
 void main() {
   runApp(const MyApp());

@@ -1,6 +1,7 @@
 import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/model/banner.dart';
+import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/model/category.dart';
 import 'package:devnology_test/model/product.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   MyBanner myBanner = MyBanner();
   Category category = Category();
   Product product = Product();
+  MyCart myCart = MyCart();
 
   @override
   void initState() {
@@ -23,6 +25,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       myBanner.getBanners(),
       category.getCategories(),
       product.getProducts(),
+      myCart.getCarts(),
     ]).whenComplete(() => Nav.goAndReplacePageNamed(context, 'home'));
 
     super.initState();
