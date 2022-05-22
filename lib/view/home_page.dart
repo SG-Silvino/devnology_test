@@ -7,7 +7,7 @@ import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/banner_item.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/category_item.dart';
-import 'package:devnology_test/widgets/list_title_wdgt.dart';
+import 'package:devnology_test/widgets/list_wdgt.dart';
 import 'package:devnology_test/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,22 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Widget list(
-      {int? flex,
-      required Widget Function(BuildContext, int) itemBuilder,
-      int? itemCount}) {
-    return Expanded(
-      flex: flex!,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        itemCount: itemCount,
-        itemBuilder: itemBuilder,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,14 +49,14 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SizedBox(
-          height: 650,
+          height: 600,
           child: Column(
             children: [
               SizedBox(
                 height: 160,
-                child: listTitle(
+                child: MyList.header(
                   "Categories",
-                  list(
+                  MyList.body(
                     flex: 1,
                     itemCount: categoryList[0]['categories'].length,
                     itemBuilder: (context, index) {
@@ -95,9 +79,9 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(
                 height: 250,
-                child: listTitle(
+                child: MyList.header(
                   "Lastest",
-                  list(
+                  MyList.body(
                     flex: 1,
                     itemCount: bannerList[0]['banners'].length,
                     itemBuilder: (context, index) {
@@ -109,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              list(
+              MyList.body(
                 flex: 1,
                 itemCount: productList.length,
                 itemBuilder: (context, index) {
