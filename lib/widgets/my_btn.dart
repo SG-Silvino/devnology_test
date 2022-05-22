@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class MyBtn {
   static roundedBtnWithIcon({
     required String? label,
-    required IconData? iconData,
+    IconData? iconData,
+    Widget? customIcon,
     Color? foregroundColor,
     Color? backgroundColor,
     required void Function()? onPressed,
@@ -31,7 +32,7 @@ class MyBtn {
                 fontWeight: FontWeight.w900,
               ),
             ),
-            Icon(iconData, color: foregroundColor)
+            customIcon ?? Icon(iconData, color: foregroundColor)
           ],
         ),
       ),

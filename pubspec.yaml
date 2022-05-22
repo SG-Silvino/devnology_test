@@ -19,6 +19,9 @@ dependencies:
 
   supabase: ^0.2.15
 
+  card_swiper: ^2.0.3
+  full_screen_image_null_safe: ^2.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
