@@ -1,20 +1,22 @@
-class Banner {
-  String? id;
-  List? banners;
+import 'package:devnology_test/config/supabase_config.dart';
+import 'package:devnology_test/main.dart';
 
-  Banner({
-    this.id,
-    this.banners,
+class MyBanner {
+  String? cover;
+
+  MyBanner({
+    this.cover,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'banners': banners,
-    };
+  factory MyBanner.fromMap(Map<String, dynamic> map) {
+    return MyBanner(
+      cover: map['cover'],
+    );
   }
 
-  factory Banner.fromMap(Map<String, dynamic> map) {
-    return Banner(id: map['id'], banners: map['banners']);
+  Future getBanners() async {
+    var response = await supabase.from("Banner").select().execute();
+
+    bannerList = response.data as List;
   }
 }

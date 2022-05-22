@@ -1,23 +1,25 @@
+import 'package:devnology_test/config/supabase_config.dart';
+import 'package:devnology_test/main.dart';
+
 class Category {
-  String? id;
-  List? categories;
+  String? label, cover;
 
   Category({
-    this.id,
-    this.categories,
+    this.label,
+    this.cover,
   });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'categories': categories,
-    };
-  }
 
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
-      id: map['id'],
-      categories: map['categories'],
+      label: map['label'],
+      cover: map['cover'],
     );
+  }
+
+  Future getCategories() async {
+    var response =
+        await supabase.from("Category").select().eq('id', 1).execute();
+
+    categoryList = response.data as List;
   }
 }

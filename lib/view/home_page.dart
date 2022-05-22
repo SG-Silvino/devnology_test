@@ -1,9 +1,13 @@
 import 'package:devnology_test/config/theme.dart';
+import 'package:devnology_test/main.dart';
+import 'package:devnology_test/model/banner.dart';
+import 'package:devnology_test/model/category.dart';
 import 'package:devnology_test/model/product.dart';
 import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/banner_item.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/category_item.dart';
+import 'package:devnology_test/widgets/list_title_wdgt.dart';
 import 'package:devnology_test/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,138 +20,107 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Product product = Product();
-
-  @override
-  void initState() {
-    product.getdata();
-
-    super.initState();
+  Widget list(
+      {int? flex,
+      required Widget Function(BuildContext, int) itemBuilder,
+      int? itemCount}) {
+    return Expanded(
+      flex: flex!,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        itemCount: itemCount,
+        itemBuilder: itemBuilder,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfff0f0f0),
-      appBar: myAppBar(context, actions: [
-        Container(
-          margin: const EdgeInsets.only(right: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SvgPicture.asset(
-                'assets/icons/chat.svg',
-                color: AppTheme.iconLight,
-              ),
-              const SizedBox(width: 20),
-              SvgPicture.asset(
-                'assets/icons/notification.svg',
-                color: AppTheme.iconLight,
-              ),
-            ],
-          ),
-        )
-      ]),
-      body: Column(
-        children: [
+      backgroundColor: AppTheme.bgGrey,
+      appBar: myAppBar(
+        context,
+        actions: [
           Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            child: Column(
+            margin: const EdgeInsets.only(right: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  alignment: AlignmentDirectional.topStart,
-                  margin: const EdgeInsets.only(top: 30, left: 25, bottom: 12),
-                  child: const Text(
-                    "Categories",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                SvgPicture.asset(
+                  'assets/icons/chat.svg',
+                  color: AppTheme.iconLight,
                 ),
-                SizedBox(
-                  height: 120,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: 3,
+                const SizedBox(width: 20),
+                SvgPicture.asset(
+                  'assets/icons/notification.svg',
+                  color: AppTheme.iconLight,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: SizedBox(
+          height: 650,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 160,
+                child: listTitle(
+                  "Categories",
+                  list(
+                    flex: 1,
+                    itemCount: categoryList[0]['categories'].length,
                     itemBuilder: (context, index) {
-                      if (index == 2) {
+                      Category category = Category.fromMap(
+                          categoryList[0]['categories'][index]);
+
+                      if (index == categoryList[0]['categories'].length - 1) {
                         return Row(
                           children: [
-                            CategoryItem(
-                              index: index,
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(right: 12),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    radius: 40,
-                                    child: Icon(
-                                      Icons.arrow_forward_ios_outlined,
-                                      color: AppTheme.secondaryColor,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  const Text("See All"),
-                                ],
-                              ),
-                            ),
+                            CategoryItem.content(category: category),
+                            CategoryItem.seeMore(),
                           ],
                         );
                       } else {
-                        return CategoryItem(
-                          index: index,
-                        );
+                        return CategoryItem.content(category: category);
                       }
                     },
                   ),
                 ),
-              ],
-            ),
-          ),
-          Column(
-            children: [
-              Container(
-                alignment: AlignmentDirectional.topStart,
-                margin: const EdgeInsets.only(left: 25, bottom: 12),
-                child: const Text(
+              ),
+              SizedBox(
+                height: 250,
+                child: listTitle(
                   "Lastest",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
+                  list(
+                    flex: 1,
+                    itemCount: bannerList[0]['banners'].length,
+                    itemBuilder: (context, index) {
+                      MyBanner banner =
+                          MyBanner.fromMap(bannerList[0]['banners'][index]);
+
+                      return BannerItem(banner: banner);
+                    },
                   ),
                 ),
               ),
-              SizedBox(
-                height: 180,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return const BannerItem();
-                  },
-                ),
+              list(
+                flex: 1,
+                itemCount: productList.length,
+                itemBuilder: (context, index) {
+                  Product product = Product.fromMap(productList[index]);
+
+                  return ProductItem(product: product);
+                },
               ),
             ],
           ),
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return const ProductItem();
-              },
-            ),
-          ),
-        ],
+        ),
       ),
       bottomNavigationBar: MyBottomNav(),
     );

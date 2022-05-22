@@ -1,5 +1,8 @@
 import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
+import 'package:devnology_test/model/banner.dart';
+import 'package:devnology_test/model/category.dart';
+import 'package:devnology_test/model/product.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -10,11 +13,17 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
+  MyBanner myBanner = MyBanner();
+  Category category = Category();
+  Product product = Product();
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () {
-      return Nav.goAndReplacePageNamed(context, 'home');
-    });
+    Future.wait([
+      myBanner.getBanners(),
+      category.getCategories(),
+      product.getProducts(),
+    ]).whenComplete(() => Nav.goAndReplacePageNamed(context, 'home'));
 
     super.initState();
   }

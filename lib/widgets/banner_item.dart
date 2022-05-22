@@ -1,19 +1,26 @@
+import 'package:devnology_test/model/banner.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BannerItem extends StatelessWidget {
-  const BannerItem({ Key? key }) : super(key: key);
+  MyBanner? banner;
+
+  BannerItem({required this.banner, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 325,
-      height: 180,
-      margin: const EdgeInsets.only(right: 10),
-      decoration: const BoxDecoration(
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        width: 325,
+        height: 180,
+        margin: const EdgeInsets.only(right: 10),
+        decoration: BoxDecoration(
           image: DecorationImage(
-        image: NetworkImage(
-            "https://fufradmroykcnbfxvqqg.supabase.co/storage/v1/object/public/images/Banners/banner_1 1.png"),
-      )),
+            image: NetworkImage(banner!.cover!),
+          ),
+        ),
+      ),
     );
   }
 }
