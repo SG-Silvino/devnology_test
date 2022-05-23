@@ -74,6 +74,7 @@ class _CartPageState extends State<CartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: 110,
@@ -92,7 +93,7 @@ class _CartPageState extends State<CartPage> {
                       fontSize: 24,
                       color: AppTheme.letterWhite,
                     ),
-                  )
+                  ),
                 ],
               ),
               MyBtn.roundedBtnWithIcon(

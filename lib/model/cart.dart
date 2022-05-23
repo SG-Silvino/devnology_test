@@ -32,6 +32,8 @@ class MyCart {
           .execute();
 
       cartProductList = response.data as List;
+
+      cartBadge = cartProductList.length;
     });
   }
 }

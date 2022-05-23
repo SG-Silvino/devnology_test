@@ -17,11 +17,11 @@ class CartIconBadge extends StatelessWidget {
       shape: BadgeShape.circle,
       badgeColor: AppTheme.secondaryColor,
       badgeContent: Container(
-        padding: EdgeInsets.all(cart > 9 ? 2 : 4),
+        padding: EdgeInsets.all(cartBadge > 9 ? 2 : 4),
         child: Text(
-          cart > 9 ? "9+" : "$cart",
+          cartBadge > 9 ? "9+" : "$cartBadge",
           style: TextStyle(
-            fontSize: cart > 9 ? 10 : 12,
+            fontSize: cartBadge > 9 ? 10 : 12,
             color: AppTheme.letterWhite,
             // fontWeight: FontWeight.bold,
           ),
@@ -29,7 +29,7 @@ class CartIconBadge extends StatelessWidget {
       ),
       elevation: 0,
       padding: const EdgeInsets.all(0),
-      position: BadgePosition.bottomEnd(bottom: cart > 9 ? bottomAlign! + 2 : bottomAlign!),
+      position: BadgePosition.bottomEnd(bottom: cartBadge > 9 ? bottomAlign! + 2 : bottomAlign!),
       animationType: BadgeAnimationType.fade,
       child: SvgPicture.asset('assets/icons/cart.svg'),
     );

@@ -160,10 +160,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 onPressed: () {},
               ),
               MyBtn.roundedBtnWithIcon(
-                label: "Checkout",
+                label: "Add to cart",
                 iconData: Icons.arrow_forward_ios_outlined,
                 backgroundColor: AppTheme.primaryColor,
-                onPressed: () => Nav.gotoPageNamed(context, 'checkout'),
+                onPressed: () {},
               ),
             ],
           ),

@@ -1,7 +1,7 @@
 import 'package:devnology_test/config/routes.dart';
 import 'package:flutter/material.dart';
 
-int cart = 0;
+int cartBadge = 0;
 
 List bannerList = [];
 List categoryList = [];
