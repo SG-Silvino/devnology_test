@@ -6,6 +6,7 @@ import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/cart_item.dart';
 import 'package:devnology_test/widgets/my_btn.dart';
+import 'package:devnology_test/widgets/my_progress_indicator.dart';
 import 'package:devnology_test/widgets/price_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,6 +19,22 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() => loading = true);
+
+    MyCart().getCarts().whenComplete(() {
+      setState(() {
+        cartListPriceTotal;
+        loading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
