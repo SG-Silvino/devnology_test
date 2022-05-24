@@ -44,16 +44,25 @@ class _CartPageState extends State<CartPage> {
           )
         ],
       ),
-      body: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        itemCount: cartList.length,
-        itemBuilder: (context, index) {
-          MyCart cart = MyCart.fromMap(cartList[index]);
+      body: loading
+          ? customProgress()
+          : cartList.isEmpty
+              ? Center(
+                  child: Text(
+                  "Nenhum item adicionado ao carinho",
+                  style:
+                      AppTheme.textStyleParagraph(fontWeight: FontWeight.w700),
+                ))
+              : ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: cartList.length,
+                  itemBuilder: (context, index) {
+                    MyCart cart = MyCart.fromMap(cartList[index]);
 
-          return CartItem(cart: cart);
-        },
-      ),
+                    return CartItem(cart: cart);
+                  },
+                ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
         width: double.infinity,
