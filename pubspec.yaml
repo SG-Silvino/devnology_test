@@ -23,6 +23,11 @@ dependencies:
   card_swiper: ^2.0.3
   full_screen_image_null_safe: ^2.0.0
 
+  get: ^4.6.5
+
+  uuid: ^3.0.6
+  shared_preferences: ^2.0.15
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
