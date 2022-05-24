@@ -1,39 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Nav {
-  static gotoPage(BuildContext context, Widget page) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => page),
-    );
+  static gotoPage(Widget page) {
+    Get.to(() => page);
   }
 
-  static goAndReplacePage(BuildContext context, Widget page) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => page,
-      ),
-    );
+  static goAndReplacePage(Widget page) {
+    Get.off(() => page);
   }
 
-  static gotoPageNamed(BuildContext context, String routeName) {
+  static gotoPageNamed(String routeName) {
     if (!routeName.contains('/')) {
       routeName = '/' + routeName;
     }
 
-    Navigator.pushNamed(context, routeName);
+    Get.toNamed(routeName);
   }
 
-  static goAndReplacePageNamed(BuildContext context, String routeName) {
+  static goAndReplacePageNamed(String routeName) {
     if (!routeName.contains('/')) {
       routeName = '/' + routeName;
     }
 
-    Navigator.pushReplacementNamed(context, routeName);
+    Get.offNamed(routeName);
   }
 
-  static goBack(BuildContext context) {
-    Navigator.pop(context);
+  static goBack() {
+    Get.back();
   }
 }
