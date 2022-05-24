@@ -1,3 +1,4 @@
+import 'package:devnology_test/config/theme.dart';
 import 'package:flutter/material.dart';
 
 class MyBtn {
@@ -27,7 +28,7 @@ class MyBtn {
             Text(
               "$label".toUpperCase(),
               style: TextStyle(
-                color: foregroundColor,
+                color: foregroundColor ?? AppTheme.letterWhite,
                 fontSize: 12,
                 fontWeight: FontWeight.w900,
               ),
