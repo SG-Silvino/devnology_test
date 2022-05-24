@@ -1,39 +1,41 @@
 import 'package:devnology_test/config/supabase_config.dart';
 import 'package:devnology_test/main.dart';
+import 'package:devnology_test/model/product.dart';
 
 class MyCart {
-  String? cover;
+  int? productQtd;
+  Product? product;
 
   MyCart({
-    this.cover,
+    this.product,
+    this.productQtd,
   });
 
   factory MyCart.fromMap(Map<String, dynamic> map) {
     return MyCart(
-      cover: map['cover'],
+      product: Product.fromMap(map['product_id']),
+      productQtd: map['product_qtd'],
     );
   }
 
   Future getCarts() async {
     await supabase
-        .from("Cart")
-        .select()
-        .eq('user_id', 'ue')
+        .from('Cart')
+        .select('''product_qtd, product_id (*)''')
         .execute()
-        .then((value) async {
-      cartProductIds = value.data as List;
-      cartProductIds = cartProductIds[0]['product_ids'];
+        .then((value) {
+          cartList = value.data as List;
 
-      var response = await supabase
-          .from("Product")
-          .select()
-          .in_('id', cartProductIds)
-          .order('last_update', ascending: true)
-          .execute();
+          for (var product in cartList) {
+            MyCart cart = MyCart.fromMap(product);
 
-      cartProductList = response.data as List;
+            double price =
+                double.parse(cart.product!.price!.toStringAsFixed(2));
 
-      cartBadge = cartProductList.length;
-    });
+            cartListPriceTotal += (price * cart.productQtd!);
+          }
+        });
+
+    cartBadge = cartList.length;
   }
 }

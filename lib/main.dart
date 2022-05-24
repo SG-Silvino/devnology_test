@@ -2,12 +2,12 @@ import 'package:devnology_test/config/routes.dart';
 import 'package:flutter/material.dart';
 
 int cartBadge = 0;
+double cartListPriceTotal = 0;
 
 List bannerList = [];
 List categoryList = [];
 List productList = [];
-List cartProductIds = [];
-List cartProductList = [];
+List cartList = [];
 
 void main() {
   runApp(const MyApp());

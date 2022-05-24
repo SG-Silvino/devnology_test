@@ -1,7 +1,7 @@
 import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/main.dart';
-import 'package:devnology_test/model/product.dart';
+import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/cart_item.dart';
@@ -18,8 +18,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  double total = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,17 +47,11 @@ class _CartPageState extends State<CartPage> {
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
-        itemCount: cartProductList.length,
+        itemCount: cartList.length,
         itemBuilder: (context, index) {
-          if (index == 0) total = 0;
+          MyCart cart = MyCart.fromMap(cartList[index]);
 
-          Product product = Product.fromMap(productList[index]);
-
-          double price = double.parse(product.price!.toStringAsFixed(2));
-
-          total = price + total;
-
-          return CartItem(product: product);
+          return CartItem(cart: cart);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -87,7 +79,7 @@ class _CartPageState extends State<CartPage> {
                     ),
                   ),
                   priceFormat(
-                    total,
+                    cartListPriceTotal,
                     style: AppTheme.textStyleParagraph(
                       fontWeight: FontWeight.w700,
                       fontSize: 24,

@@ -1,13 +1,13 @@
 import 'package:devnology_test/config/theme.dart';
-import 'package:devnology_test/model/product.dart';
+import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/widgets/price_format.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CartItem extends StatelessWidget {
-  Product? product;
+  MyCart? cart;
 
-  CartItem({required this.product, Key? key}) : super(key: key);
+  CartItem({required this.cart, Key? key}) : super(key: key);
 
   cartBtn({
     required String? label,
@@ -53,7 +53,7 @@ class CartItem extends StatelessWidget {
               margin: const EdgeInsets.only(right: 22),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(product!.imgUrl![0]))),
+                      image: NetworkImage(cart!.product!.imgUrl![0]))),
             ),
             SizedBox(
               width: 204,
@@ -63,7 +63,7 @@ class CartItem extends StatelessWidget {
                     height: 41,
                     width: double.infinity,
                     child: Text(
-                      "${product!.name}",
+                      "${cart!.product!.name}",
                       softWrap: true,
                       maxLines: 3,
                       overflow: TextOverflow.visible,
@@ -77,7 +77,7 @@ class CartItem extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     width: double.infinity,
                     child: priceFormat(
-                      product!.price!,
+                      cart!.product!.price!,
                       style: AppTheme.textStyleParagraph(
                         fontWeight: FontWeight.w700,
                         color: AppTheme.letterblack,
@@ -95,7 +95,7 @@ class CartItem extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 7),
                             child: Text(
-                              "1",
+                              "${cart!.productQtd}",
                               style: AppTheme.textStyleParagraph(
                                 fontWeight: FontWeight.w700,
                                 color: AppTheme.letterblack,
