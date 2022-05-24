@@ -4,6 +4,7 @@ import 'package:devnology_test/model/banner.dart';
 import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/model/category.dart';
 import 'package:devnology_test/model/product.dart';
+import 'package:devnology_test/model/user.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -18,15 +19,18 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Category category = Category();
   Product product = Product();
   MyCart myCart = MyCart();
+  User user = User();
 
   @override
   void initState() {
-    Future.wait([
-      myBanner.getBanners(),
-      category.getCategories(),
-      product.getProducts(),
-      myCart.getCarts(),
-    ]).whenComplete(() => Nav.goAndReplacePageNamed(context, 'home'));
+    user.handleUser().then((value) {
+      Future.wait([
+        myBanner.getBanners(),
+        category.getCategories(),
+        product.getProducts(),
+        myCart.getCarts(),
+      ]).whenComplete(() => Nav.goAndReplacePageNamed('home'));
+    });
 
     super.initState();
   }

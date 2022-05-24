@@ -26,7 +26,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     return Scaffold(
       appBar: myAppBar(context, actions: [
         GestureDetector(
-          onTap: () => Nav.gotoPageNamed(context, 'cart'),
+          onTap: () => Nav.gotoPageNamed('cart'),
           child: Container(
             margin: const EdgeInsets.only(right: 20),
             child: CartIconBadge(8),

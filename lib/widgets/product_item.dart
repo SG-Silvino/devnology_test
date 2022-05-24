@@ -14,7 +14,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Nav.gotoPage(context, ProductDetailsPage(product: product)),
+      onTap: () => Nav.gotoPage(ProductDetailsPage(product: product)),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

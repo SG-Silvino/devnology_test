@@ -16,7 +16,7 @@ myAppBar(BuildContext context, {List<Widget>? actions}) {
     leading: canPop
         ? IconButton(
             icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Nav.goBack(context),
+            onPressed: () => Nav.goBack(),
           )
         : null,
     actions: actions,
