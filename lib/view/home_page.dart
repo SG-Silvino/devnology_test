@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: MyBottomNav(),
+      bottomNavigationBar: const MyBottomNav(),
     );
   }
 }

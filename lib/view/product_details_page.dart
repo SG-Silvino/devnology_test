@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
+import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/model/product.dart';
 import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/cart_badge_wdgt.dart';
@@ -163,7 +164,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 label: "Add to cart",
                 iconData: Icons.arrow_forward_ios_outlined,
                 backgroundColor: AppTheme.primaryColor,
-                onPressed: () {},
+                onPressed: () async {
+                  MyCart cart = MyCart();
+
+                  await cart.addToCart(context, widget.product!);
+                },
               ),
             ],
           ),

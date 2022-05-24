@@ -98,7 +98,7 @@ class _CartPageState extends State<CartPage> {
           ),
         ),
       ),
-      bottomNavigationBar: MyBottomNav(),
+      bottomNavigationBar: const MyBottomNav(),
     );
   }
 }
