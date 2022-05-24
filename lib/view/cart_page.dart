@@ -92,7 +92,7 @@ class _CartPageState extends State<CartPage> {
                 label: "Checkout",
                 iconData: Icons.arrow_forward_ios_outlined,
                 backgroundColor: AppTheme.primaryColor,
-                onPressed: () => Nav.gotoPageNamed(context, 'checkout'),
+                onPressed: () => Nav.gotoPageNamed('checkout'),
               ),
             ],
           ),
