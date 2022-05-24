@@ -3,24 +3,20 @@ import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/widgets/cart_badge_wdgt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-int _selectedIndex = 0;
+RxInt selectedNavIndex = 0.obs;
 
 // ignore: must_be_immutable
-class MyBottomNav extends StatefulWidget {
-  const MyBottomNav({Key? key}) : super(key: key);
+class MyBottomNav extends StatelessWidget {
+  MyBottomNav({Key? key}) : super(key: key);
 
-  @override
-  State<MyBottomNav> createState() => _MyBottomNavState();
-}
-
-class _MyBottomNavState extends State<MyBottomNav> {
   List navRoutes = [
     '/home',
-    '/comingSoon',
+    '/search',
     '/cart',
-    '/comingSoon',
-    '/comingSoon',
+    '/profile',
+    '/more',
   ];
 
   String iconPath = "assets/icons/";
@@ -28,15 +24,13 @@ class _MyBottomNavState extends State<MyBottomNav> {
   @override
   Widget build(BuildContext context) {
     void _onItemTapped(int index) {
-      setState(() {
-        _selectedIndex = index;
-      });
+      selectedNavIndex.value = index;
 
       Nav.goAndReplacePageNamed(navRoutes[index]);
     }
 
     Color _itemIsSelected(int index) {
-      if (index == _selectedIndex) {
+      if (index == selectedNavIndex.value) {
         return AppTheme.secondaryColor;
       } else {
         return AppTheme.iconLight;
@@ -48,7 +42,7 @@ class _MyBottomNavState extends State<MyBottomNav> {
       backgroundColor: AppTheme.primaryColor,
       unselectedItemColor: AppTheme.letterWhite,
       selectedItemColor: AppTheme.secondaryColor,
-      currentIndex: _selectedIndex,
+      currentIndex: selectedNavIndex.value,
       onTap: _onItemTapped,
       iconSize: 18,
       items: <BottomNavigationBarItem>[
