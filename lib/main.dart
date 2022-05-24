@@ -9,6 +9,8 @@ List categoryList = [];
 List productList = [];
 List cartList = [];
 
+String? userID;
+
 void main() {
   runApp(const MyApp());
 }
