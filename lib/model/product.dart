@@ -7,6 +7,7 @@ class Product {
   String? details;
   List? imgUrl;
   double? price;
+  bool? enabled;
 
   Product({
     this.id,
@@ -14,6 +15,7 @@ class Product {
     this.imgUrl,
     this.price,
     this.details,
+    this.enabled,
   });
 
   factory Product.fromMap(Map<String, dynamic> map) {
@@ -23,6 +25,7 @@ class Product {
       details: map['details'],
       imgUrl: map['imgUrl'],
       price: map['price'].toDouble(),
+      enabled: map['enabled'],
     );
   }
 
@@ -30,6 +33,7 @@ class Product {
     var response = await supabase
         .from("Product")
         .select()
+        .eq('enabled', true)
         .order('last_update', ascending: true)
         .execute();
 

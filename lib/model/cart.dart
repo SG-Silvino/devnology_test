@@ -36,10 +36,12 @@ class MyCart {
           for (var product in cartList) {
             MyCart cart = MyCart.fromMap(product);
 
-            double price =
-                double.parse(cart.product!.price!.toStringAsFixed(2));
+            if (cart.product!.enabled!) {
+              double price =
+                  double.parse(cart.product!.price!.toStringAsFixed(2));
 
-            cartListPriceTotal += price * cart.productQtd!;
+              cartListPriceTotal += price * cart.productQtd!;
+            }
           }
         });
 

@@ -89,22 +89,31 @@ class CartItem extends StatelessWidget {
                     child: SizedBox(
                       width: 48,
                       height: 16,
-                      child: Row(
-                        children: [
-                          cartBtn(label: "-", size: 13, onPressed: () {}),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 7),
-                            child: Text(
-                              "${cart!.productQtd}",
+                      child: cart!.product!.enabled!
+                          ? Row(
+                              children: [
+                                cartBtn(label: "-", size: 13, onPressed: () {}),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 7),
+                                  child: Text(
+                                    "${cart!.productQtd}",
+                                    style: AppTheme.textStyleParagraph(
+                                      fontWeight: FontWeight.w700,
+                                      color: AppTheme.letterblack,
+                                    ),
+                                  ),
+                                ),
+                                cartBtn(label: "+", size: 14, onPressed: () {}),
+                              ],
+                            )
+                          : Text(
+                              "Out of stock",
                               style: AppTheme.textStyleParagraph(
                                 fontWeight: FontWeight.w700,
-                                color: AppTheme.letterblack,
+                                color: Colors.red,
                               ),
                             ),
-                          ),
-                          cartBtn(label: "+", size: 14, onPressed: () {}),
-                        ],
-                      ),
                     ),
                   ),
                 ],
