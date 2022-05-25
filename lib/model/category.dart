@@ -20,6 +20,7 @@ class Category {
     var response = await supabase
         .from("Category")
         .select()
+        .eq('enabled', true)
         .order('id', ascending: true)
         .execute();
 

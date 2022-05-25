@@ -18,6 +18,7 @@ class MyBanner {
     var response = await supabase
         .from("Banner")
         .select()
+        .eq('enabled', true)
         .order('id', ascending: true)
         .execute();
 
