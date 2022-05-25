@@ -12,6 +12,9 @@ List cartList = [];
 
 String? userID;
 
+DateTime? lastFetchHomeData;
+DateTime? newFetchHomeData;
+
 void main() {
   runApp(const MyApp());
 }

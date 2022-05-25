@@ -1,6 +1,7 @@
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/main.dart';
 import 'package:devnology_test/model/banner.dart';
+import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/model/category.dart';
 import 'package:devnology_test/model/product.dart';
 import 'package:devnology_test/widgets/appbar.dart';
@@ -8,6 +9,7 @@ import 'package:devnology_test/widgets/banner_item.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/category_item.dart';
 import 'package:devnology_test/widgets/list_wdgt.dart';
+import 'package:devnology_test/widgets/my_progress_indicator.dart';
 import 'package:devnology_test/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,6 +22,42 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  MyBanner myBanner = MyBanner();
+  Category category = Category();
+  Product product = Product();
+  MyCart myCart = MyCart();
+
+  fetchData() {
+    setState(() => loading = true);
+
+    Future.wait([
+      myBanner.getBanners(),
+      category.getCategories(),
+      product.getProducts(),
+      myCart.getCarts(),
+    ]).whenComplete(() => setState(() => loading = false));
+  }
+
+  bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (lastFetchHomeData == null) {
+      lastFetchHomeData = DateTime.now();
+    } else {
+      newFetchHomeData = DateTime.now();
+
+      Duration diff = newFetchHomeData!.difference(lastFetchHomeData!);
+
+      if (diff.inSeconds > 5) {
+        lastFetchHomeData = DateTime.now();
+        fetchData();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,64 +84,68 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: SizedBox(
-          height: 600,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 160,
-                child: MyList.header(
-                  "Categories",
-                  MyList.body(
-                    flex: 1,
-                    itemCount: categoryList.length,
-                    itemBuilder: (context, index) {
-                      Category category = Category.fromMap(categoryList[index]);
+      body: loading
+          ? customProgress()
+          : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: SizedBox(
+                height: 600,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 160,
+                      child: MyList.header(
+                        "Categories",
+                        MyList.body(
+                          flex: 1,
+                          itemCount: categoryList.length,
+                          itemBuilder: (context, index) {
+                            Category category =
+                                Category.fromMap(categoryList[index]);
 
-                      if (index == categoryList.length - 1) {
-                        return Row(
-                          children: [
-                            CategoryItem.content(category: category),
-                            CategoryItem.seeMore(),
-                          ],
-                        );
-                      } else {
-                        return CategoryItem.content(category: category);
-                      }
-                    },
-                  ),
+                            if (index == categoryList.length - 1) {
+                              return Row(
+                                children: [
+                                  CategoryItem.content(category: category),
+                                  CategoryItem.seeMore(),
+                                ],
+                              );
+                            } else {
+                              return CategoryItem.content(category: category);
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 250,
+                      child: MyList.header(
+                        "Lastest",
+                        MyList.body(
+                          flex: 1,
+                          itemCount: bannerList.length,
+                          itemBuilder: (context, index) {
+                            MyBanner banner =
+                                MyBanner.fromMap(bannerList[index]);
+
+                            return BannerItem(banner: banner);
+                          },
+                        ),
+                      ),
+                    ),
+                    MyList.body(
+                      flex: 1,
+                      itemCount: productList.length,
+                      itemBuilder: (context, index) {
+                        Product product = Product.fromMap(productList[index]);
+
+                        return ProductItem(product: product);
+                      },
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 250,
-                child: MyList.header(
-                  "Lastest",
-                  MyList.body(
-                    flex: 1,
-                    itemCount: bannerList.length,
-                    itemBuilder: (context, index) {
-                      MyBanner banner = MyBanner.fromMap(bannerList[index]);
-
-                      return BannerItem(banner: banner);
-                    },
-                  ),
-                ),
-              ),
-              MyList.body(
-                flex: 1,
-                itemCount: productList.length,
-                itemBuilder: (context, index) {
-                  Product product = Product.fromMap(productList[index]);
-
-                  return ProductItem(product: product);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
       bottomNavigationBar: MyBottomNav(),
     );
   }
