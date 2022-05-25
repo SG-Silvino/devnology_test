@@ -15,7 +15,11 @@ class MyBanner {
   }
 
   Future getBanners() async {
-    var response = await supabase.from("Banner").select().execute();
+    var response = await supabase
+        .from("Banner")
+        .select()
+        .order('id', ascending: true)
+        .execute();
 
     bannerList = response.data as List;
   }

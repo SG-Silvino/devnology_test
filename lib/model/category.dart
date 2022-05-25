@@ -17,8 +17,11 @@ class Category {
   }
 
   Future getCategories() async {
-    var response =
-        await supabase.from("Category").select().eq('id', 1).execute();
+    var response = await supabase
+        .from("Category")
+        .select()
+        .order('id', ascending: true)
+        .execute();
 
     categoryList = response.data as List;
   }

@@ -58,12 +58,11 @@ class _HomePageState extends State<HomePage> {
                   "Categories",
                   MyList.body(
                     flex: 1,
-                    itemCount: categoryList[0]['categories'].length,
+                    itemCount: categoryList.length,
                     itemBuilder: (context, index) {
-                      Category category = Category.fromMap(
-                          categoryList[0]['categories'][index]);
+                      Category category = Category.fromMap(categoryList[index]);
 
-                      if (index == categoryList[0]['categories'].length - 1) {
+                      if (index == categoryList.length - 1) {
                         return Row(
                           children: [
                             CategoryItem.content(category: category),
@@ -83,10 +82,9 @@ class _HomePageState extends State<HomePage> {
                   "Lastest",
                   MyList.body(
                     flex: 1,
-                    itemCount: bannerList[0]['banners'].length,
+                    itemCount: bannerList.length,
                     itemBuilder: (context, index) {
-                      MyBanner banner =
-                          MyBanner.fromMap(bannerList[0]['banners'][index]);
+                      MyBanner banner = MyBanner.fromMap(bannerList[index]);
 
                       return BannerItem(banner: banner);
                     },
