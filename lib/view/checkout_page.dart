@@ -14,7 +14,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context),
+      appBar: myAppBar(
+        context,
+        centerTitle: true,
+      ),
       backgroundColor: AppTheme.bgLight,
       body: Center(
         child: Column(

@@ -26,15 +26,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context, actions: [
-        GestureDetector(
-          onTap: () => Nav.gotoPageNamed('cart'),
-          child: Container(
-            margin: const EdgeInsets.only(right: 20),
-            child: CartIconBadge(8),
+      appBar: myAppBar(
+        context,
+        centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: () => Nav.gotoPageNamed('cart'),
+            child: Container(
+              margin: const EdgeInsets.only(right: 20),
+              child: CartIconBadge(8),
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
       backgroundColor: AppTheme.bgLight,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
