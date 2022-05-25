@@ -111,8 +111,8 @@ class _CartPageState extends State<CartPage> {
                               fontSize: 16,
                             ),
                           ),
-                          cancelBtnColor: AppTheme.thirdColor,
-                          confirmBtnColor: AppTheme.secondaryColor,
+                          cancelBtnColor: AppTheme.primaryColor,
+                          confirmBtnColor: Colors.red,
                           onCancel: () {
                             setState(() => showDismissBG = true);
 
