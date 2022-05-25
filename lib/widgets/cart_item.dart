@@ -1,14 +1,22 @@
+import 'dart:async';
+
 import 'package:devnology_test/config/theme.dart';
+import 'package:devnology_test/main.dart';
 import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/widgets/price_format.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class CartItem extends StatelessWidget {
+class CartItem extends StatefulWidget {
   MyCart? cart;
 
   CartItem({required this.cart, Key? key}) : super(key: key);
 
+  @override
+  State<CartItem> createState() => _CartItemState();
+}
+
+class _CartItemState extends State<CartItem> {
   cartBtn({
     required String? label,
     required double? size,
@@ -34,6 +42,55 @@ class CartItem extends StatelessWidget {
     );
   }
 
+  handleItemQtd({required bool increment}) {
+    int qtd = widget.cart!.productQtd!;
+
+    if (!increment && qtd == 1) {
+      qtd = 1;
+    } else {
+      double price =
+          double.parse(widget.cart!.product!.price!.toStringAsFixed(2));
+
+      if (increment) {
+        widget.cart!.productQtd = ++qtd;
+        cartListPriceTotal.value += price;
+      } else {
+        widget.cart!.productQtd = --qtd;
+        cartListPriceTotal.value -= price;
+      }
+
+      //scheduling task: update product qtd in cart
+      scheduleTaskFetchCart() {
+        timer = Timer(const Duration(seconds: 3), () {
+          widget.cart!.updateCartProductQtd(widget.cart!, qtd);
+          timer = null;
+        });
+      }
+
+      if (timer != null) {
+        timer!.cancel();
+        scheduleTaskFetchCart();
+      } else {
+        scheduleTaskFetchCart();
+      }
+    }
+  }
+
+  Timer? timer;
+
+  @override
+  void dispose() {
+    //on exit to page, cancel schedule (timer) if is active
+    //and fetch data immediately
+    if (timer != null) {
+      timer!.cancel();
+
+      widget.cart!.updateCartProductQtd(widget.cart!, widget.cart!.productQtd!);
+    }
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -53,7 +110,7 @@ class CartItem extends StatelessWidget {
               margin: const EdgeInsets.only(right: 22),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(cart!.product!.imgUrl![0]))),
+                      image: NetworkImage(widget.cart!.product!.imgUrl![0]))),
             ),
             SizedBox(
               width: 204,
@@ -63,7 +120,7 @@ class CartItem extends StatelessWidget {
                     height: 41,
                     width: double.infinity,
                     child: Text(
-                      "${cart!.product!.name}",
+                      "${widget.cart!.product!.name}",
                       softWrap: true,
                       maxLines: 3,
                       overflow: TextOverflow.visible,
@@ -77,7 +134,7 @@ class CartItem extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     width: double.infinity,
                     child: priceFormat(
-                      cart!.product!.price!,
+                      widget.cart!.product!.price!,
                       style: AppTheme.textStyleParagraph(
                         fontWeight: FontWeight.w700,
                         color: AppTheme.letterblack,
@@ -89,22 +146,36 @@ class CartItem extends StatelessWidget {
                     child: SizedBox(
                       width: 48,
                       height: 16,
-                      child: cart!.product!.enabled!
+                      child: widget.cart!.product!.enabled!
                           ? Row(
                               children: [
-                                cartBtn(label: "-", size: 13, onPressed: () {}),
+                                cartBtn(
+                                    label: "-",
+                                    size: 13,
+                                    onPressed: () {
+                                      setState(() {
+                                        handleItemQtd(increment: false);
+                                      });
+                                    }),
                                 Container(
                                   margin:
                                       const EdgeInsets.symmetric(horizontal: 7),
                                   child: Text(
-                                    "${cart!.productQtd}",
+                                    "${widget.cart!.productQtd}",
                                     style: AppTheme.textStyleParagraph(
                                       fontWeight: FontWeight.w700,
                                       color: AppTheme.letterblack,
                                     ),
                                   ),
                                 ),
-                                cartBtn(label: "+", size: 14, onPressed: () {}),
+                                cartBtn(
+                                    label: "+",
+                                    size: 14,
+                                    onPressed: () {
+                                      setState(() {
+                                        handleItemQtd(increment: true);
+                                      });
+                                    }),
                               ],
                             )
                           : Text(

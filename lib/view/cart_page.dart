@@ -11,6 +11,7 @@ import 'package:devnology_test/widgets/my_dialog.dart';
 import 'package:devnology_test/widgets/price_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _CartPageState extends State<CartPage> {
 
     setState(() => loading = true);
 
-    MyCart().getCarts().whenComplete(() {
+    MyCart().getCarts().then((value) {
       cartListPriceTotal.value;
 
       setState(() => loading = false);
@@ -164,14 +165,25 @@ class _CartPageState extends State<CartPage> {
                       ),
                     ),
                   ),
-                  priceFormat(
-                    cartListPriceTotal.value,
-                    style: AppTheme.textStyleParagraph(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                      color: AppTheme.letterWhite,
-                    ),
-                  ),
+                  loading
+                      ? priceFormat(
+                          0,
+                          style: AppTheme.textStyleParagraph(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                            color: AppTheme.letterWhite,
+                          ),
+                        )
+                      : Obx(
+                          () => priceFormat(
+                            cartListPriceTotal.value,
+                            style: AppTheme.textStyleParagraph(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24,
+                              color: AppTheme.letterWhite,
+                            ),
+                          ),
+                        ),
                 ],
               ),
               MyBtn.roundedBtnWithIcon(

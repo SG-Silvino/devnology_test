@@ -73,12 +73,7 @@ class MyCart {
 
           int qtd = cart.productQtd! + 1;
 
-          await supabase
-              .from("Cart")
-              .update({"product_qtd": qtd})
-              .eq('id', cart.id)
-              .execute()
-              .then((value) => getCarts());
+          await updateCartProductQtd(cart, qtd);
         }
       }
 
@@ -88,6 +83,15 @@ class MyCart {
     } else {
       await addNewProductToCart();
     }
+  }
+
+  Future updateCartProductQtd(MyCart cart, int qtd) async {
+    await supabase
+        .from("Cart")
+        .update({"product_qtd": qtd})
+        .eq('id', cart.id)
+        .execute()
+        .then((value) => getCarts());
   }
 
   Future deleteFromCart(MyCart cart) async {
