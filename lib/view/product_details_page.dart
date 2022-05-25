@@ -7,7 +7,7 @@ import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/cart_badge_wdgt.dart';
 import 'package:devnology_test/widgets/my_btn.dart';
 import 'package:devnology_test/widgets/price_format.dart';
-import 'package:devnology_test/widgets/my_snackbar_msg.dart';
+import 'package:devnology_test/widgets/my_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
@@ -169,7 +169,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   MyCart cart = MyCart();
 
                   cart.addToCart(context, widget.product!).then((value) {
-                    MySnackBar.showSnackBar(
+                    MyDialog.showSnackBarText(
                         title: "Cart", msg: "Item added to cart");
                   });
                 },
