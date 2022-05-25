@@ -1,6 +1,8 @@
+import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
+import 'package:devnology_test/widgets/my_dialog.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
@@ -13,19 +15,22 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: myAppBar(context),
-      body: Center(
-        child: Text(
-          "Search",
-          style: AppTheme.textStyleParagraph(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async => MyDialog.showExitToApp(),
+      child: Scaffold(
+        appBar: myAppBar(context),
+        body: Center(
+          child: Text(
+            "Search",
+            style: AppTheme.textStyleParagraph(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.black,
+            ),
           ),
         ),
+        bottomNavigationBar: MyBottomNav(),
       ),
-      bottomNavigationBar: MyBottomNav(),
     );
   }
 }

@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
+import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/my_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MyDialog {
@@ -57,5 +62,38 @@ class MyDialog {
         );
       },
     );
+  }
+
+  static showExitToApp() async {
+    if (Get.currentRoute != "/home") {
+      Nav.goAndReplacePageNamed('home');
+      selectedNavIndex.value = 0;
+
+      return false;
+    } else {
+      return await MyDialog.showConfirmDialog(
+        context: Get.context!,
+        title: "Exit to app",
+        content: Text(
+          'Are you sure you want to close app?',
+          style: AppTheme.textStyleParagraph(
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+          ),
+        ),
+        cancelBtnColor: AppTheme.primaryColor,
+        confirmBtnColor: Colors.red,
+        onCancel: () => Nav.goBack(),
+        onConfirm: () {
+          Future.delayed(const Duration(milliseconds: 500), () {
+            if (!Platform.isAndroid) {
+              exit(0);
+            } else {
+              SystemNavigator.pop();
+            }
+          });
+        },
+      );
+    }
   }
 }

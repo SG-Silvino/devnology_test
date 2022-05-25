@@ -9,6 +9,7 @@ import 'package:devnology_test/widgets/banner_item.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/category_item.dart';
 import 'package:devnology_test/widgets/list_wdgt.dart';
+import 'package:devnology_test/widgets/my_dialog.dart';
 import 'package:devnology_test/widgets/my_progress_indicator.dart';
 import 'package:devnology_test/widgets/product_item.dart';
 import 'package:flutter/material.dart';
@@ -61,96 +62,101 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.bgGrey,
-      appBar: myAppBar(
-        context,
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/chat.svg',
-                  color: AppTheme.iconLight,
-                ),
-                const SizedBox(width: 20),
-                SvgPicture.asset(
-                  'assets/icons/notification.svg',
-                  color: AppTheme.iconLight,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      body: loading
-          ? customProgress()
-          : SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: SizedBox(
-                height: 600,
-                child: Column(
-                  children: [
-                    if (categoryList.isNotEmpty)
-                      SizedBox(
-                        height: 160,
-                        child: MyList.header(
-                          "Categories",
-                          MyList.body(
-                            flex: 1,
-                            itemCount: categoryList.length,
-                            itemBuilder: (context, index) {
-                              Category category =
-                                  Category.fromMap(categoryList[index]);
-
-                              if (index == categoryList.length - 1) {
-                                return Row(
-                                  children: [
-                                    CategoryItem.content(category: category),
-                                    CategoryItem.seeMore(),
-                                  ],
-                                );
-                              } else {
-                                return CategoryItem.content(category: category);
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                    if (bannerList.isNotEmpty)
-                      SizedBox(
-                        height: 250,
-                        child: MyList.header(
-                          "Lastest",
-                          MyList.body(
-                            flex: 1,
-                            itemCount: bannerList.length,
-                            itemBuilder: (context, index) {
-                              MyBanner banner =
-                                  MyBanner.fromMap(bannerList[index]);
-
-                              return BannerItem(banner: banner);
-                            },
-                          ),
-                        ),
-                      ),
-                    if (productList.isNotEmpty)
-                      MyList.body(
-                        flex: 1,
-                        itemCount: productList.length,
-                        itemBuilder: (context, index) {
-                          Product product = Product.fromMap(productList[index]);
-
-                          return ProductItem(product: product);
-                        },
-                      ),
-                  ],
-                ),
+    return WillPopScope(
+      onWillPop: () async => MyDialog.showExitToApp(),
+      child: Scaffold(
+        backgroundColor: AppTheme.bgGrey,
+        appBar: myAppBar(
+          context,
+          actions: [
+            Container(
+              margin: const EdgeInsets.only(right: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(
+                    'assets/icons/chat.svg',
+                    color: AppTheme.iconLight,
+                  ),
+                  const SizedBox(width: 20),
+                  SvgPicture.asset(
+                    'assets/icons/notification.svg',
+                    color: AppTheme.iconLight,
+                  ),
+                ],
               ),
             ),
-      bottomNavigationBar: MyBottomNav(),
+          ],
+        ),
+        body: loading
+            ? customProgress()
+            : SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: SizedBox(
+                  height: 600,
+                  child: Column(
+                    children: [
+                      if (categoryList.isNotEmpty)
+                        SizedBox(
+                          height: 160,
+                          child: MyList.header(
+                            "Categories",
+                            MyList.body(
+                              flex: 1,
+                              itemCount: categoryList.length,
+                              itemBuilder: (context, index) {
+                                Category category =
+                                    Category.fromMap(categoryList[index]);
+
+                                if (index == categoryList.length - 1) {
+                                  return Row(
+                                    children: [
+                                      CategoryItem.content(category: category),
+                                      CategoryItem.seeMore(),
+                                    ],
+                                  );
+                                } else {
+                                  return CategoryItem.content(
+                                      category: category);
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      if (bannerList.isNotEmpty)
+                        SizedBox(
+                          height: 250,
+                          child: MyList.header(
+                            "Lastest",
+                            MyList.body(
+                              flex: 1,
+                              itemCount: bannerList.length,
+                              itemBuilder: (context, index) {
+                                MyBanner banner =
+                                    MyBanner.fromMap(bannerList[index]);
+
+                                return BannerItem(banner: banner);
+                              },
+                            ),
+                          ),
+                        ),
+                      if (productList.isNotEmpty)
+                        MyList.body(
+                          flex: 1,
+                          itemCount: productList.length,
+                          itemBuilder: (context, index) {
+                            Product product =
+                                Product.fromMap(productList[index]);
+
+                            return ProductItem(product: product);
+                          },
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+        bottomNavigationBar: MyBottomNav(),
+      ),
     );
   }
 }

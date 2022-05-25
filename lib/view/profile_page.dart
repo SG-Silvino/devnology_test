@@ -1,6 +1,7 @@
 import 'package:devnology_test/main.dart';
 import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
+import 'package:devnology_test/widgets/my_dialog.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -13,12 +14,15 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: myAppBar(context),
-      body: Center(
-        child: Text("UserID: $userID"),
+    return WillPopScope(
+      onWillPop: () async => MyDialog.showExitToApp(),
+      child: Scaffold(
+        appBar: myAppBar(context),
+        body: Center(
+          child: Text("UserID: $userID"),
+        ),
+        bottomNavigationBar: MyBottomNav(),
       ),
-      bottomNavigationBar: MyBottomNav(),
     );
   }
 }
