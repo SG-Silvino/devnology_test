@@ -61,10 +61,14 @@ class MyCart {
     }
 
     if (cartList.isNotEmpty) {
+      bool productExistsInCart = false;
+
       for (var i = 0; i < cartList.length; i++) {
         MyCart cart = MyCart.fromMap(cartList[i]);
 
         if (cart.product!.id == product.id) {
+          productExistsInCart = true;
+
           int qtd = cart.productQtd! + 1;
 
           await supabase
@@ -73,9 +77,11 @@ class MyCart {
               .eq('id', cart.id)
               .execute()
               .then((value) => getCarts());
-        } else {
-          await addNewProductToCart();
         }
+      }
+
+      if (!productExistsInCart) {
+        await addNewProductToCart();
       }
     } else {
       await addNewProductToCart();
