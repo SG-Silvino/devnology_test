@@ -39,4 +39,25 @@ class MyBtn {
       ),
     );
   }
+
+  static Widget txtBtn({
+    required void Function()? onPressed,
+    required String? label,
+    Color? color,
+    Color? backgroundColor,
+  }) {
+    return TextButton(
+      onPressed: onPressed,
+      child: Text(
+        "$label",
+        style: AppTheme.textStyleParagraph(
+          fontWeight: FontWeight.w700,
+          color: color ?? AppTheme.letterWhite,
+        ),
+      ),
+      style: TextButton.styleFrom(
+        backgroundColor: backgroundColor ?? AppTheme.primaryColor,
+      ),
+    );
+  }
 }
