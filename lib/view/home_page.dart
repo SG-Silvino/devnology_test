@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    //Comparare datetime if should fetch new data
     if (lastFetchHomeData == null) {
       lastFetchHomeData = DateTime.now();
     } else {
