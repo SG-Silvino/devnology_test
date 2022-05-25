@@ -1,4 +1,3 @@
-import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
