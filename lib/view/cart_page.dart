@@ -7,6 +7,7 @@ import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/cart_item.dart';
 import 'package:devnology_test/widgets/my_btn.dart';
 import 'package:devnology_test/widgets/my_progress_indicator.dart';
+import 'package:devnology_test/widgets/my_dialog.dart';
 import 'package:devnology_test/widgets/price_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,6 +22,8 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   bool loading = false;
 
+  bool showDismissBG = true;
+
   @override
   void initState() {
     super.initState();
@@ -28,10 +31,9 @@ class _CartPageState extends State<CartPage> {
     setState(() => loading = true);
 
     MyCart().getCarts().whenComplete(() {
-      setState(() {
-        cartListPriceTotal;
-        loading = false;
-      });
+      cartListPriceTotal.value;
+
+      setState(() => loading = false);
     });
   }
 
@@ -77,7 +79,65 @@ class _CartPageState extends State<CartPage> {
                   itemBuilder: (context, index) {
                     MyCart cart = MyCart.fromMap(cartList[index]);
 
-                    return CartItem(cart: cart);
+                    return Dismissible(
+                      key: Key(cart.id!),
+                      direction: DismissDirection.endToStart,
+                      background: showDismissBG
+                          ? Container(
+                              color: Colors.red,
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: const [
+                                    Icon(Icons.delete, color: Colors.white)
+                                  ],
+                                ),
+                              ),
+                            )
+                          : null,
+                      confirmDismiss: (DismissDirection direction) async {
+                        setState(() => showDismissBG = false);
+
+                        return await MyDialog.showConfirmDialog(
+                          context: context,
+                          title: "Delete item",
+                          content: Text(
+                            "Are you sure you want to delete this item?",
+                            style: AppTheme.textStyleParagraph(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                          cancelBtnColor: AppTheme.thirdColor,
+                          confirmBtnColor: AppTheme.secondaryColor,
+                          onCancel: () {
+                            setState(() => showDismissBG = true);
+
+                            Navigator.of(context).pop(false);
+                          },
+                          onConfirm: () async {
+                            setState(() {
+                              showDismissBG = true;
+                              cartList.removeAt(index);
+                            });
+
+                            Navigator.of(context).pop(true);
+
+                            //recalculate price total on remove item
+                            double price = double.parse(
+                                cart.product!.price!.toStringAsFixed(2));
+
+                            cartListPriceTotal.value -=
+                                price * cart.productQtd!;
+
+                            await cart.deleteFromCart(cart);
+                          },
+                        );
+                      },
+                      child: CartItem(cart: cart),
+                    );
                   },
                 ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -105,7 +165,7 @@ class _CartPageState extends State<CartPage> {
                     ),
                   ),
                   priceFormat(
-                    cartListPriceTotal,
+                    cartListPriceTotal.value,
                     style: AppTheme.textStyleParagraph(
                       fontWeight: FontWeight.w700,
                       fontSize: 24,

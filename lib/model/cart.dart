@@ -31,7 +31,7 @@ class MyCart {
         .execute()
         .then((value) {
           cartList = value.data as List;
-          cartListPriceTotal = 0;
+          cartListPriceTotal.value = 0;
 
           for (var product in cartList) {
             MyCart cart = MyCart.fromMap(product);
@@ -40,7 +40,7 @@ class MyCart {
               double price =
                   double.parse(cart.product!.price!.toStringAsFixed(2));
 
-              cartListPriceTotal += price * cart.productQtd!;
+              cartListPriceTotal.value += price * cart.productQtd!;
             }
           }
         });
@@ -88,5 +88,9 @@ class MyCart {
     } else {
       await addNewProductToCart();
     }
+  }
+
+  Future deleteFromCart(MyCart cart) async {
+    await supabase.from("Cart").delete().eq('id', cart.id).execute();
   }
 }

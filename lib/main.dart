@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 RxInt cartBadge = 0.obs;
-double cartListPriceTotal = 0;
+RxDouble cartListPriceTotal = 0.0.obs;
 
 List bannerList = [];
 List categoryList = [];
