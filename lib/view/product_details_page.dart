@@ -168,8 +168,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 onPressed: () async {
                   MyCart cart = MyCart();
 
-                  MySnackBar.showSnackBar(
-                      title: "Cart", msg: "Item added to cart");
+                  cart.addToCart(context, widget.product!).then((value) {
+                    MySnackBar.showSnackBar(
+                        title: "Cart", msg: "Item added to cart");
+                  });
                 },
               ),
             ],
