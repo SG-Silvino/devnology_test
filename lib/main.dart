@@ -1,3 +1,4 @@
+import 'package:devnology_test/config/connectivity.dart';
 import 'package:devnology_test/config/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,10 @@ DateTime? lastFetchHomeData;
 DateTime? newFetchHomeData;
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  listenInternetConnection();
+
   runApp(const MyApp());
 }
 
