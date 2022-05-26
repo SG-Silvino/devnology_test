@@ -51,7 +51,7 @@ class _CartPageState extends State<CartPage> {
 
       Duration diff = newFetchCartDatetime!.difference(lastFetchCartDatetime!);
 
-      if (diff.inSeconds > 10) {
+      if (diff.inSeconds > 3) {
         lastFetchCartDatetime = DateTime.now();
         fetchData();
       }
