@@ -12,14 +12,19 @@ class MyImg {
     return CachedNetworkImage(
       imageUrl: url,
       key: key!,
-      placeholder: (context, url) =>
-          CircleAvatar(radius: radius, child: customProgress()),
+      placeholder: (context, url) => CircleAvatar(
+        radius: radius,
+        child: customProgress(),
+        backgroundColor: AppTheme.primaryColor.withOpacity(.05),
+      ),
       errorWidget: (context, url, error) => CircleAvatar(
-          radius: radius, child: const Icon(Icons.error, color: Colors.red)),
+        radius: radius,
+        child: const Icon(Icons.error, color: Colors.red),
+        backgroundColor: AppTheme.primaryColor.withOpacity(.05),
+      ),
       imageBuilder: (context, imageProvider) => CircleAvatar(
         radius: radius,
         backgroundImage: imageProvider,
-        backgroundColor: AppTheme.primaryColor.withOpacity(.2),
       ),
     );
   }
@@ -30,6 +35,7 @@ class MyImg {
     double? width,
     double? height,
     EdgeInsetsGeometry? margin,
+    bool showBGPlaceholder = false,
   }) {
     return CachedNetworkImage(
       imageUrl: url,
@@ -38,11 +44,23 @@ class MyImg {
           margin: margin,
           width: width,
           height: height,
+          decoration: showBGPlaceholder
+              ? BoxDecoration(
+                  color: AppTheme.primaryColor.withOpacity(.05),
+                  borderRadius: BorderRadius.circular(10),
+                )
+              : null,
           child: customProgress()),
       errorWidget: (context, url, error) => Container(
           margin: margin,
           width: width,
           height: height,
+          decoration: showBGPlaceholder
+              ? BoxDecoration(
+                  color: AppTheme.primaryColor.withOpacity(.05),
+                  borderRadius: BorderRadius.circular(10),
+                )
+              : null,
           child: const Icon(Icons.error, color: Colors.red)),
       imageBuilder: (context, imageProvider) => Container(
         margin: margin,

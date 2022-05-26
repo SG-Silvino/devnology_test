@@ -15,6 +15,7 @@ class BannerItem extends StatelessWidget {
       child: MyImg.imgURL(
         url: banner!.image!,
         key: Key(banner!.id!.toString()),
+        showBGPlaceholder: true,
         width: 325,
         height: 180,
         margin: const EdgeInsets.only(right: 10),
