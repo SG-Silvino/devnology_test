@@ -13,8 +13,8 @@ List cartList = [];
 
 String? userID;
 
-DateTime? lastFetchHomeData;
-DateTime? newFetchHomeData;
+DateTime? lastFetchHomeDatetime;
+DateTime? newFetchHomeDatetime;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

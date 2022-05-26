@@ -46,15 +46,15 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     //Comparare datetime if should fetch new data
-    if (lastFetchHomeData == null) {
-      lastFetchHomeData = DateTime.now();
+    if (lastFetchHomeDatetime == null) {
+      lastFetchHomeDatetime = DateTime.now();
     } else {
-      newFetchHomeData = DateTime.now();
+      newFetchHomeDatetime = DateTime.now();
 
-      Duration diff = newFetchHomeData!.difference(lastFetchHomeData!);
+      Duration diff = newFetchHomeDatetime!.difference(lastFetchHomeDatetime!);
 
       if (diff.inSeconds > 10) {
-        lastFetchHomeData = DateTime.now();
+        lastFetchHomeDatetime = DateTime.now();
         fetchData();
       }
     }
