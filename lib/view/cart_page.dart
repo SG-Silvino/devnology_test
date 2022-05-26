@@ -14,8 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
+// ignore: must_be_immutable
 class CartPage extends StatefulWidget {
-  const CartPage({Key? key}) : super(key: key);
+  bool? canPop = false;
+
+  CartPage({this.canPop, Key? key}) : super(key: key);
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -42,11 +45,12 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => MyDialog.showExitToApp(),
+      onWillPop: () async => widget.canPop! ? true : MyDialog.showExitToApp(),
       child: Scaffold(
         backgroundColor: AppTheme.bgLight,
         appBar: myAppBar(
           context,
+          centerTitle: widget.canPop! ? true : false,
           actions: [
             Container(
               margin: const EdgeInsets.only(right: 24),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Nav {
-  static gotoPage(Widget page) {
-    Get.to(() => page);
+  static gotoPage(page) {
+    Get.to(page);
   }
 
   static goAndReplacePage(Widget page) {
@@ -23,7 +23,7 @@ class Nav {
       routeName = '/' + routeName;
     }
 
-    Get.offNamed(routeName);
+    Get.offAllNamed(routeName);
   }
 
   static goBack() {

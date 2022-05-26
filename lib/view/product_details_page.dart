@@ -3,7 +3,9 @@ import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/model/product.dart';
+import 'package:devnology_test/view/cart_page.dart';
 import 'package:devnology_test/widgets/appbar.dart';
+import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/cart_badge_wdgt.dart';
 import 'package:devnology_test/widgets/my_btn.dart';
 import 'package:devnology_test/widgets/my_img.dart';
@@ -32,7 +34,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         centerTitle: true,
         actions: [
           GestureDetector(
-            onTap: () => Nav.gotoPageNamed('cart'),
+            onTap: () {
+              selectedNavIndex.value = 2;
+              Nav.gotoPage(() => CartPage(canPop: true));
+            },
             child: Container(
               margin: const EdgeInsets.only(right: 20),
               child: CartIconBadge(8),

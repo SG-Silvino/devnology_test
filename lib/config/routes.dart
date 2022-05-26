@@ -14,7 +14,8 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: '/', page: () => const SplashScreenPage(), transition: fadeIn),
   GetPage(name: '/home', page: () => const HomePage(), transition: fadeIn),
   GetPage(name: '/search', page: () => const SearchPage(), transition: fadeIn),
-  GetPage(name: '/cart', page: () => const CartPage(), transition: fadeIn),
+  GetPage(
+      name: '/cart', page: () => CartPage(canPop: false), transition: fadeIn),
   GetPage(
       name: '/profile', page: () => const ProfilePage(), transition: fadeIn),
   GetPage(name: '/more', page: () => const MorePage(), transition: fadeIn),
