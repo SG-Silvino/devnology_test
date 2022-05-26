@@ -29,17 +29,33 @@ class _CartPageState extends State<CartPage> {
 
   bool showDismissBG = true;
 
+  Future fetchData() async {
+    setState(() => loading = true);
+
+    await MyCart().getCarts().then((value) {
+      cartListPriceTotal.value;
+
+      setState(() => loading = false);
+    }).whenComplete(() => setState(() => loading = false));
+  }
+
   @override
   void initState() {
     super.initState();
 
-    setState(() => loading = true);
+    //Comparare datetime if should fetch new data
+    if (lastFetchCartDatetime == null) {
+      lastFetchCartDatetime = DateTime.now();
+    } else {
+      newFetchCartDatetime = DateTime.now();
 
-    MyCart().getCarts().then((value) {
-      cartListPriceTotal.value;
+      Duration diff = newFetchCartDatetime!.difference(lastFetchCartDatetime!);
 
-      setState(() => loading = false);
-    });
+      if (diff.inSeconds > 10) {
+        lastFetchCartDatetime = DateTime.now();
+        fetchData();
+      }
+    }
   }
 
   @override

@@ -16,6 +16,9 @@ String? userID;
 DateTime? lastFetchHomeDatetime;
 DateTime? newFetchHomeDatetime;
 
+DateTime? lastFetchCartDatetime;
+DateTime? newFetchCartDatetime;
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
