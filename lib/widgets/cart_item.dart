@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/main.dart';
 import 'package:devnology_test/model/cart.dart';
+import 'package:devnology_test/widgets/my_img.dart';
 import 'package:devnology_test/widgets/price_format.dart';
 import 'package:flutter/material.dart';
 
@@ -104,13 +105,12 @@ class _CartItemState extends State<CartItem> {
         height: 100,
         child: Row(
           children: [
-            Container(
+            MyImg.imgURL(
+              url: widget.cart!.product!.imgUrl![0],
+              key: Key(widget.cart!.product!.id!),
               width: 100,
               height: 100,
               margin: const EdgeInsets.only(right: 22),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(widget.cart!.product!.imgUrl![0]))),
             ),
             SizedBox(
               width: 204,

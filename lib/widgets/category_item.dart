@@ -1,5 +1,8 @@
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/model/category.dart';
+import 'package:devnology_test/widgets/my_img.dart';
+import 'package:devnology_test/widgets/my_progress_indicator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem {
@@ -11,10 +14,10 @@ class CategoryItem {
         child: Column(
           children: [
             Flexible(
-              child: CircleAvatar(
+              child: MyImg.circleAvatarURL(
+                url: category!.image!,
+                key: Key(category.id!.toString()),
                 radius: 40,
-                backgroundColor: AppTheme.primaryColor.withOpacity(.2),
-                backgroundImage: NetworkImage(category!.cover!),
               ),
             ),
             const SizedBox(height: 8),

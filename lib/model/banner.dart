@@ -2,15 +2,18 @@ import 'package:devnology_test/config/supabase_config.dart';
 import 'package:devnology_test/main.dart';
 
 class MyBanner {
-  String? cover;
+  int? id;
+  String? image;
 
   MyBanner({
-    this.cover,
+    this.id,
+    this.image,
   });
 
   factory MyBanner.fromMap(Map<String, dynamic> map) {
     return MyBanner(
-      cover: map['cover'],
+      id: map['id'],
+      image: map['image'],
     );
   }
 

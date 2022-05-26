@@ -2,6 +2,7 @@ import 'package:devnology_test/config/navigation.dart';
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/model/product.dart';
 import 'package:devnology_test/view/product_details_page.dart';
+import 'package:devnology_test/widgets/my_img.dart';
 import 'package:devnology_test/widgets/price_format.dart';
 import 'package:flutter/material.dart';
 
@@ -25,13 +26,11 @@ class ProductItem extends StatelessWidget {
         height: 135,
         child: Column(
           children: [
-            Container(
+            MyImg.imgURL(
+              url: product!.imgUrl![0],
+              key: Key(product!.id!),
               width: 80,
               height: 80,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: NetworkImage(product!.imgUrl![0]),
-              )),
             ),
             Container(
               margin: const EdgeInsets.only(left: 8, right: 8),

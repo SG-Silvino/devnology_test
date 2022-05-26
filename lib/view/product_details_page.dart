@@ -6,6 +6,7 @@ import 'package:devnology_test/model/product.dart';
 import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/cart_badge_wdgt.dart';
 import 'package:devnology_test/widgets/my_btn.dart';
+import 'package:devnology_test/widgets/my_img.dart';
 import 'package:devnology_test/widgets/price_format.dart';
 import 'package:devnology_test/widgets/my_dialog.dart';
 import 'package:flutter/material.dart';
@@ -72,11 +73,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   itemCount: widget.product!.imgUrl!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return FullScreenWidget(
-                      child: Container(
+                      backgroundColor: AppTheme.secondaryColor,
+                      child: MyImg.imgURL(
+                        url: widget.product!.imgUrl![index],
+                        key: Key(widget.product!.id!),
                         margin: const EdgeInsets.only(bottom: 10),
-                        child: Image.network(
-                          "${widget.product!.imgUrl![index]}",
-                        ),
+                        width: 200,
+                        height: 200,
                       ),
                     );
                   },

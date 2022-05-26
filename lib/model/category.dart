@@ -2,17 +2,20 @@ import 'package:devnology_test/config/supabase_config.dart';
 import 'package:devnology_test/main.dart';
 
 class Category {
-  String? label, cover;
+  String? label, image;
+  int? id;
 
   Category({
+    this.id,
     this.label,
-    this.cover,
+    this.image,
   });
 
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
+      id: map['id'],
       label: map['label'],
-      cover: map['cover'],
+      image: map['image'],
     );
   }
 
