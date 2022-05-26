@@ -23,12 +23,12 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   @override
   void initState() {
-    user.handleUser().then((value) {
+    User().handleUser().then((value) {
       Future.wait([
-        myBanner.getBanners(),
-        category.getCategories(),
-        product.getProducts(),
-        myCart.getCarts(),
+        MyBanner().getBanners(),
+        Category().getCategories(),
+        Product().getProducts(),
+        MyCart().getCarts(),
       ]).whenComplete(() => Nav.goAndReplacePageNamed('home'));
     });
 

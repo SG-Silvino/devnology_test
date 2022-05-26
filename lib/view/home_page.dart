@@ -32,10 +32,10 @@ class _HomePageState extends State<HomePage> {
     setState(() => loading = true);
 
     Future.wait([
-      myBanner.getBanners(),
-      category.getCategories(),
-      product.getProducts(),
-      myCart.getCarts(),
+      MyBanner().getBanners(),
+      Category().getCategories(),
+      Product().getProducts(),
+      MyCart().getCarts(),
     ]).whenComplete(() => setState(() => loading = false));
   }
 
