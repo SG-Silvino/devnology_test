@@ -43,17 +43,22 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
 
-    //Comparare datetime if should fetch new data
-    if (lastFetchCartDatetime == null) {
-      lastFetchCartDatetime = DateTime.now();
+    if (shouldFetchCart!) {
+      fetchData();
     } else {
-      newFetchCartDatetime = DateTime.now();
-
-      Duration diff = newFetchCartDatetime!.difference(lastFetchCartDatetime!);
-
-      if (diff.inSeconds > 3) {
+      //Comparare datetime if should fetch new data
+      if (lastFetchCartDatetime == null) {
         lastFetchCartDatetime = DateTime.now();
-        fetchData();
+      } else {
+        newFetchCartDatetime = DateTime.now();
+
+        Duration diff =
+            newFetchCartDatetime!.difference(lastFetchCartDatetime!);
+
+        if (diff.inSeconds > 10) {
+          lastFetchCartDatetime = DateTime.now();
+          fetchData();
+        }
       }
     }
   }

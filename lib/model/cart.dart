@@ -23,6 +23,8 @@ class MyCart {
   }
 
   Future getCarts() async {
+    shouldFetchCart = false;
+
     await supabase
         .from('Cart')
         .select('''id, product_qtd, product_id (*)''')
@@ -49,11 +51,17 @@ class MyCart {
   }
 
   Future addToCart(BuildContext context, Product product) async {
+    shouldFetchCart = true;
+
     Future addNewProductToCart() async {
-      await supabase.from("Cart").insert({
-        "user_id": userID,
-        "product_id": product.id,
-      }).execute();
+      await supabase
+          .from("Cart")
+          .insert({
+            "user_id": userID,
+            "product_id": product.id,
+          })
+          .execute()
+          .then((value) => ++cartBadge.value);
     }
 
     if (cartList.isNotEmpty) {
@@ -80,15 +88,18 @@ class MyCart {
   }
 
   Future updateCartProductQtd(MyCart cart, int qtd) async {
+    shouldFetchCart = true;
+
     await supabase
         .from("Cart")
         .update({"product_qtd": qtd})
         .eq('id', cart.id)
-        .execute()
-        .then((value) => getCarts());
+        .execute();
   }
 
   Future deleteFromCart(MyCart cart) async {
+    shouldFetchCart = true;
+
     await supabase.from("Cart").delete().eq('id', cart.id).execute();
   }
 }

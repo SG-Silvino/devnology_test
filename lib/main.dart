@@ -3,8 +3,8 @@ import 'package:devnology_test/config/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-RxInt cartBadge = 0.obs;
-RxDouble cartListPriceTotal = 0.0.obs;
+RxInt cartBadge = 0.obs; //qtd of different products in cart
+RxDouble cartListPriceTotal = 0.0.obs; //total price of products in cart
 
 List bannerList = [];
 List categoryList = [];
@@ -13,11 +13,14 @@ List cartList = [];
 
 String? userID;
 
+//Datetime to decide if should do new request since last time it was made
 DateTime? lastFetchHomeDatetime;
 DateTime? newFetchHomeDatetime;
 
 DateTime? lastFetchCartDatetime;
 DateTime? newFetchCartDatetime;
+//for check if user made changes on cart
+bool? shouldFetchCart = false;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

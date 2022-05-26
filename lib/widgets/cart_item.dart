@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:devnology_test/config/theme.dart';
 import 'package:devnology_test/main.dart';
 import 'package:devnology_test/model/cart.dart';
@@ -47,11 +46,14 @@ class _CartItemState extends State<CartItem> {
     int qtd = widget.cart!.productQtd!;
 
     if (!increment && qtd == 1) {
+      //if try decrementing and qtd is 1, do nothing
       qtd = 1;
     } else {
       double price =
           double.parse(widget.cart!.product!.price!.toStringAsFixed(2));
 
+      //increment or decrement qtd of product
+      //and recalculate total price
       if (increment) {
         widget.cart!.productQtd = ++qtd;
         cartListPriceTotal.value += price;
@@ -60,33 +62,55 @@ class _CartItemState extends State<CartItem> {
         cartListPriceTotal.value -= price;
       }
 
-      //scheduling task: update product qtd in cart
-      scheduleTaskFetchCart() {
-        timer = Timer(const Duration(seconds: 3), () {
-          widget.cart!.updateCartProductQtd(widget.cart!, qtd);
-          timer = null;
-        });
-      }
+      productQtdChanged = true;
 
+      //Cancel timer if it's not null
+      //to interrupt the task that was scheduled
       if (timer != null) {
         timer!.cancel();
-        scheduleTaskFetchCart();
-      } else {
-        scheduleTaskFetchCart();
       }
+
+      //scheduling task: update product qtd in BD
+      timer = Timer(const Duration(seconds: 3), () async {
+        //if user made changes on qtd, update it in BD
+        if (initialQtd != qtd) {
+          await widget.cart!.updateCartProductQtd(widget.cart!, qtd);
+        }
+
+        timer = null; //destroy the timer
+
+        //initialQtd is the qtd of product after save in BD
+        //and set productQtd is not changed again
+        initialQtd = qtd;
+        productQtdChanged = false;
+      });
     }
   }
 
   Timer? timer;
+
+  bool productQtdChanged = false; //to check if user made changes on cart
+  int? initialQtd; //to save initial qtd of product
+
+  @override
+  void initState() {
+    initialQtd = widget.cart!.productQtd;
+
+    super.initState();
+  }
 
   @override
   void dispose() {
     //on exit to page, cancel schedule (timer) if is active
     //and fetch data immediately
     if (timer != null) {
-      timer!.cancel();
+      timer!.cancel(); //unschedule the task: update product qtd in BD
 
-      widget.cart!.updateCartProductQtd(widget.cart!, widget.cart!.productQtd!);
+      //send product qtd to BD if qtd was changed
+      if (productQtdChanged) {
+        widget.cart!
+            .updateCartProductQtd(widget.cart!, widget.cart!.productQtd!);
+      }
     }
 
     super.dispose();
@@ -143,8 +167,7 @@ class _CartItemState extends State<CartItem> {
                                   });
                                 }),
                             Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 7),
+                              margin: const EdgeInsets.symmetric(horizontal: 7),
                               child: Text(
                                 "${widget.cart!.productQtd}",
                                 style: AppTheme.textStyleParagraph(
