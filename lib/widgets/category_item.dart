@@ -13,6 +13,7 @@ class CategoryItem {
             Flexible(
               child: CircleAvatar(
                 radius: 40,
+                backgroundColor: AppTheme.primaryColor.withOpacity(.2),
                 backgroundImage: NetworkImage(category!.cover!),
               ),
             ),
