@@ -120,7 +120,7 @@ class _CartPageState extends State<CartPage> {
                             onCancel: () {
                               setState(() => showDismissBG = true);
 
-                              Navigator.of(context).pop(false);
+                              Nav.goBack();
                             },
                             onConfirm: () async {
                               setState(() {
@@ -128,7 +128,9 @@ class _CartPageState extends State<CartPage> {
                                 cartList.removeAt(index);
                               });
 
-                              Navigator.of(context).pop(true);
+                              Nav.goBack();
+
+                              cartBadge.value--;
 
                               //recalculate price total on remove item
                               double price = double.parse(
