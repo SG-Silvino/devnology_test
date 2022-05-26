@@ -50,16 +50,10 @@ class MyCart {
 
   Future addToCart(BuildContext context, Product product) async {
     Future addNewProductToCart() async {
-      await supabase
-          .from("Cart")
-          .insert({
-            "user_id": userID,
-            "product_id": product.id,
-          })
-          .execute()
-          .then((value) {
-            getCarts();
-          });
+      await supabase.from("Cart").insert({
+        "user_id": userID,
+        "product_id": product.id,
+      }).execute();
     }
 
     if (cartList.isNotEmpty) {

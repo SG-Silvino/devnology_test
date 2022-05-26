@@ -36,7 +36,7 @@ class _CartPageState extends State<CartPage> {
       cartListPriceTotal.value;
 
       setState(() => loading = false);
-    }).whenComplete(() => setState(() => loading = false));
+    });
   }
 
   @override
