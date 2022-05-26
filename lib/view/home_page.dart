@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
 
       Duration diff = newFetchHomeData!.difference(lastFetchHomeData!);
 
-      if (diff.inSeconds > 5) {
+      if (diff.inSeconds > 10) {
         lastFetchHomeData = DateTime.now();
         fetchData();
       }
