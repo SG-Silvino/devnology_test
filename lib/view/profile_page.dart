@@ -19,7 +19,13 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         appBar: myAppBar(context),
         body: Center(
-          child: Text("UserID: $userID"),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              "UserID: $userID",
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
         bottomNavigationBar: MyBottomNav(),
       ),
