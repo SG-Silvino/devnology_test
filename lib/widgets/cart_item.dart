@@ -119,14 +119,17 @@ class _CartItemState extends State<CartItem> {
                   SizedBox(
                     height: 41,
                     width: double.infinity,
-                    child: Text(
-                      "${widget.cart!.product!.name}",
-                      softWrap: true,
-                      maxLines: 3,
-                      overflow: TextOverflow.visible,
-                      style: AppTheme.textStyleParagraph(
-                        fontSize: 11,
-                        color: AppTheme.letterblack,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "${widget.cart!.product!.name}",
+                        softWrap: true,
+                        maxLines: 3,
+                        overflow: TextOverflow.visible,
+                        style: AppTheme.textStyleParagraph(
+                          fontSize: 11,
+                          color: AppTheme.letterblack,
+                        ),
                       ),
                     ),
                   ),
