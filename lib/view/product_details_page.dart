@@ -46,6 +46,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         child: Container(
           margin: const EdgeInsets.only(bottom: 100),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 margin: const EdgeInsets.only(
@@ -54,15 +55,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   top: 20,
                   bottom: 10,
                 ),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    "${widget.product!.name}",
-                    style: AppTheme.textStyleParagraph(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15,
-                      color: AppTheme.letterblack,
-                    ),
+                child: Text(
+                  "${widget.product!.name}",
+                  style: AppTheme.textStyleParagraph(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                    color: AppTheme.letterblack,
                   ),
                 ),
               ),
@@ -93,21 +91,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               Container(
                 margin: const EdgeInsets.only(left: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        "Price:",
-                        style: AppTheme.textStyleParagraph(
-                          fontWeight: FontWeight.w700,
-                          color: AppTheme.letterblack,
-                          fontSize: 15,
-                        ),
+                    Text(
+                      "Price:",
+                      style: AppTheme.textStyleParagraph(
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.letterblack,
+                        fontSize: 15,
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(bottom: 15),
-                      width: double.infinity,
                       child: priceFormat(
                         widget.product!.price!,
                         style: AppTheme.textStyleParagraph(
@@ -117,7 +112,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                     Container(
-                      width: double.infinity,
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Text(
                         "About this item:",
@@ -130,7 +124,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
                     Container(
                       margin: const EdgeInsets.only(right: 22, bottom: 6),
-                      width: double.infinity,
                       child: Text(
                         "${widget.product!.details}",
                         style: AppTheme.textStyleParagraph(

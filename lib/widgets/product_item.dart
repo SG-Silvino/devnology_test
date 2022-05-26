@@ -35,6 +35,7 @@ class ProductItem extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(left: 8, right: 8),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 4, bottom: 6),
@@ -50,15 +51,12 @@ class ProductItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: priceFormat(
-                      product!.price!,
-                      style: AppTheme.textStyleParagraph(
-                        color: AppTheme.letterblack,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                      ),
+                  priceFormat(
+                    product!.price!,
+                    style: AppTheme.textStyleParagraph(
+                      color: AppTheme.letterblack,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
                     ),
                   ),
                 ],

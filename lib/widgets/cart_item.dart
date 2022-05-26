@@ -97,12 +97,7 @@ class _CartItemState extends State<CartItem> {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        margin: const EdgeInsets.only(left: 25, top: 24, bottom: 20),
-        height: 100,
+        margin: const EdgeInsets.only(left: 25, right: 25, top: 24, bottom: 20),
         child: Row(
           children: [
             MyImg.imgURL(
@@ -112,30 +107,22 @@ class _CartItemState extends State<CartItem> {
               height: 100,
               margin: const EdgeInsets.only(right: 22),
             ),
-            SizedBox(
-              width: 204,
+            Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 41,
-                    width: double.infinity,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "${widget.cart!.product!.name}",
-                        softWrap: true,
-                        maxLines: 3,
-                        overflow: TextOverflow.visible,
-                        style: AppTheme.textStyleParagraph(
-                          fontSize: 11,
-                          color: AppTheme.letterblack,
-                        ),
-                      ),
+                  Text(
+                    "${widget.cart!.product!.name}",
+                    softWrap: true,
+                    maxLines: 3,
+                    overflow: TextOverflow.visible,
+                    style: AppTheme.textStyleParagraph(
+                      fontSize: 11,
+                      color: AppTheme.letterblack,
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 10),
-                    width: double.infinity,
                     child: priceFormat(
                       widget.cart!.product!.price!,
                       style: AppTheme.textStyleParagraph(
@@ -144,52 +131,45 @@ class _CartItemState extends State<CartItem> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: SizedBox(
-                      width: 48,
-                      height: 16,
-                      child: widget.cart!.product!.enabled!
-                          ? Row(
-                              children: [
-                                cartBtn(
-                                    label: "-",
-                                    size: 13,
-                                    onPressed: () {
-                                      setState(() {
-                                        handleItemQtd(increment: false);
-                                      });
-                                    }),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                  child: Text(
-                                    "${widget.cart!.productQtd}",
-                                    style: AppTheme.textStyleParagraph(
-                                      fontWeight: FontWeight.w700,
-                                      color: AppTheme.letterblack,
-                                    ),
-                                  ),
+                  widget.cart!.product!.enabled!
+                      ? Row(
+                          children: [
+                            cartBtn(
+                                label: "-",
+                                size: 14,
+                                onPressed: () {
+                                  setState(() {
+                                    handleItemQtd(increment: false);
+                                  });
+                                }),
+                            Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 7),
+                              child: Text(
+                                "${widget.cart!.productQtd}",
+                                style: AppTheme.textStyleParagraph(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppTheme.letterblack,
                                 ),
-                                cartBtn(
-                                    label: "+",
-                                    size: 14,
-                                    onPressed: () {
-                                      setState(() {
-                                        handleItemQtd(increment: true);
-                                      });
-                                    }),
-                              ],
-                            )
-                          : Text(
-                              "Out of stock",
-                              style: AppTheme.textStyleParagraph(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.red,
                               ),
                             ),
-                    ),
-                  ),
+                            cartBtn(
+                                label: "+",
+                                size: 15,
+                                onPressed: () {
+                                  setState(() {
+                                    handleItemQtd(increment: true);
+                                  });
+                                }),
+                          ],
+                        )
+                      : Text(
+                          "Out of stock",
+                          style: AppTheme.textStyleParagraph(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.red,
+                          ),
+                        ),
                 ],
               ),
             ),
