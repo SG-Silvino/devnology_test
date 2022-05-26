@@ -23,11 +23,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  MyBanner myBanner = MyBanner();
-  Category category = Category();
-  Product product = Product();
-  MyCart myCart = MyCart();
-
   fetchData() {
     setState(() => loading = true);
 

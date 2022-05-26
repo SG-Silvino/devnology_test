@@ -15,12 +15,6 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
-  MyBanner myBanner = MyBanner();
-  Category category = Category();
-  Product product = Product();
-  MyCart myCart = MyCart();
-  User user = User();
-
   @override
   void initState() {
     User().handleUser().then((value) {
