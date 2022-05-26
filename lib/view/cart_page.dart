@@ -5,6 +5,7 @@ import 'package:devnology_test/model/cart.dart';
 import 'package:devnology_test/widgets/appbar.dart';
 import 'package:devnology_test/widgets/bottom_navigator.dart';
 import 'package:devnology_test/widgets/cart_item.dart';
+import 'package:devnology_test/widgets/list_wdgt.dart';
 import 'package:devnology_test/widgets/my_btn.dart';
 import 'package:devnology_test/widgets/my_progress_indicator.dart';
 import 'package:devnology_test/widgets/my_dialog.dart';
@@ -75,14 +76,15 @@ class _CartPageState extends State<CartPage> {
                     style: AppTheme.textStyleParagraph(
                         fontWeight: FontWeight.w700),
                   ))
-                : ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
+                : MyList.vertical(
+                    label: "Cart",
+                    padding: const EdgeInsets.only(bottom: 100),
                     itemCount: cartList.length,
                     itemBuilder: (context, index) {
                       MyCart cart = MyCart.fromMap(cartList[index]);
 
                       return Dismissible(
+                        child: CartItem(cart: cart),
                         key: Key(cart.id!),
                         direction: DismissDirection.endToStart,
                         background: showDismissBG
@@ -139,7 +141,6 @@ class _CartPageState extends State<CartPage> {
                             },
                           );
                         },
-                        child: CartItem(cart: cart),
                       );
                     },
                   ),

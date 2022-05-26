@@ -97,51 +97,43 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       if (categoryList.isNotEmpty)
-                        SizedBox(
+                        MyList.horizontal(
                           height: 160,
-                          child: MyList.header(
-                            "Categories",
-                            MyList.body(
-                              flex: 1,
-                              itemCount: categoryList.length,
-                              itemBuilder: (context, index) {
-                                Category category =
-                                    Category.fromMap(categoryList[index]);
+                          flex: 1,
+                          label: "Categories",
+                          itemCount: categoryList.length,
+                          itemBuilder: (context, index) {
+                            Category category =
+                                Category.fromMap(categoryList[index]);
 
-                                if (index == categoryList.length - 1) {
-                                  return Row(
-                                    children: [
-                                      CategoryItem.content(category: category),
-                                      CategoryItem.seeMore(),
-                                    ],
-                                  );
-                                } else {
-                                  return CategoryItem.content(
-                                      category: category);
-                                }
-                              },
-                            ),
-                          ),
+                            if (index == categoryList.length - 1) {
+                              return Row(
+                                children: [
+                                  CategoryItem.content(category: category),
+                                  CategoryItem.seeMore(),
+                                ],
+                              );
+                            } else {
+                              return CategoryItem.content(category: category);
+                            }
+                          },
                         ),
                       if (bannerList.isNotEmpty)
-                        SizedBox(
+                        MyList.horizontal(
                           height: 250,
-                          child: MyList.header(
-                            "Lastest",
-                            MyList.body(
-                              flex: 1,
-                              itemCount: bannerList.length,
-                              itemBuilder: (context, index) {
-                                MyBanner banner =
-                                    MyBanner.fromMap(bannerList[index]);
+                          label: "Lastest",
+                          flex: 1,
+                          itemCount: bannerList.length,
+                          itemBuilder: (context, index) {
+                            MyBanner banner =
+                                MyBanner.fromMap(bannerList[index]);
 
-                                return BannerItem(banner: banner);
-                              },
-                            ),
-                          ),
+                            return BannerItem(banner: banner);
+                          },
                         ),
                       if (productList.isNotEmpty)
-                        MyList.body(
+                        MyList.horizontal(
+                          height: 190,
                           flex: 1,
                           itemCount: productList.length,
                           itemBuilder: (context, index) {
