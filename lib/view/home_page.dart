@@ -92,59 +92,54 @@ class _HomePageState extends State<HomePage> {
             ? customProgress()
             : SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: SizedBox(
-                  height: 600,
-                  child: Column(
-                    children: [
-                      if (categoryList.isNotEmpty)
-                        MyList.horizontal(
-                          height: 160,
-                          flex: 1,
-                          label: "Categories",
-                          itemCount: categoryList.length,
-                          itemBuilder: (context, index) {
-                            Category category =
-                                Category.fromMap(categoryList[index]);
+                child: Column(
+                  children: [
+                    if (categoryList.isNotEmpty)
+                      MyList.horizontal(
+                        height: 160,
+                        flex: 1,
+                        label: "Categories",
+                        itemCount: categoryList.length,
+                        itemBuilder: (context, index) {
+                          Category category =
+                              Category.fromMap(categoryList[index]);
 
-                            if (index == categoryList.length - 1) {
-                              return Row(
-                                children: [
-                                  CategoryItem.content(category: category),
-                                  CategoryItem.seeMore(),
-                                ],
-                              );
-                            } else {
-                              return CategoryItem.content(category: category);
-                            }
-                          },
-                        ),
-                      if (bannerList.isNotEmpty)
-                        MyList.horizontal(
-                          height: 250,
-                          label: "Lastest",
-                          flex: 1,
-                          itemCount: bannerList.length,
-                          itemBuilder: (context, index) {
-                            MyBanner banner =
-                                MyBanner.fromMap(bannerList[index]);
+                          if (index == categoryList.length - 1) {
+                            return Row(
+                              children: [
+                                CategoryItem.content(category: category),
+                                CategoryItem.seeMore(),
+                              ],
+                            );
+                          } else {
+                            return CategoryItem.content(category: category);
+                          }
+                        },
+                      ),
+                    if (bannerList.isNotEmpty)
+                      MyList.horizontal(
+                        height: 250,
+                        label: "Lastest",
+                        flex: 1,
+                        itemCount: bannerList.length,
+                        itemBuilder: (context, index) {
+                          MyBanner banner = MyBanner.fromMap(bannerList[index]);
 
-                            return BannerItem(banner: banner);
-                          },
-                        ),
-                      if (productList.isNotEmpty)
-                        MyList.horizontal(
-                          height: 190,
-                          flex: 1,
-                          itemCount: productList.length,
-                          itemBuilder: (context, index) {
-                            Product product =
-                                Product.fromMap(productList[index]);
+                          return BannerItem(banner: banner);
+                        },
+                      ),
+                    if (productList.isNotEmpty)
+                      MyList.horizontal(
+                        height: 190,
+                        flex: 1,
+                        itemCount: productList.length,
+                        itemBuilder: (context, index) {
+                          Product product = Product.fromMap(productList[index]);
 
-                            return ProductItem(product: product);
-                          },
-                        ),
-                    ],
-                  ),
+                          return ProductItem(product: product);
+                        },
+                      ),
+                  ],
                 ),
               ),
         bottomNavigationBar: MyBottomNav(),
